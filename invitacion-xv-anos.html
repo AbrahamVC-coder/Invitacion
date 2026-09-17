@@ -22,9 +22,14 @@
   }
   *{ box-sizing: border-box; }
   html,body{ margin:0; padding:0; }
+  html{ overflow-x: hidden; width: 100%; }
   html{
     scroll-snap-type: y proximity;
     scroll-behavior: smooth;
+  }
+  html, body{
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
   }
 
   /* ---------- cada sección ocupa una pantalla completa ---------- */
@@ -225,6 +230,7 @@
     align-self: stretch;
     width: 100%;
     max-width: 100%;
+    touch-action: pan-x;
   }
   .gallery-track::-webkit-scrollbar{ display:none; }
   .gallery-track.dragging{ cursor: grabbing; scroll-snap-type: none; }
@@ -308,14 +314,6 @@
   }
   .choice-btn.active{ border-color: var(--gold); color: var(--midnight-deep); background: var(--gold-soft); }
 
-  .guests-row{ display:flex; align-items:center; gap: 16px; margin-top: 4px; }
-  .stepper{ display:flex; align-items:center; gap: 14px; }
-  .stepper button{
-    width: 30px; height:30px; border-radius:50%; border: 1px solid var(--line); background:transparent;
-    color: var(--gold-soft); font-size: 1rem; cursor:pointer;
-  }
-  .stepper span{ font-family:'Cinzel', serif; font-size:1.1rem; min-width: 18px; text-align:center; }
-
   .submit-btn{
     margin-top: 26px; width: 100%; padding: 14px 0;
     background: var(--gold-soft); color: var(--midnight-deep); border: none;
@@ -374,7 +372,7 @@
     transform: rotate(12deg);
   }
 
-  .words-section{ overflow: visible; }
+  .words-section{ overflow-x: hidden; overflow-y: visible; }
   .rabbit-decor{
     position: absolute;
     bottom: -6px; left: 4px;
@@ -515,7 +513,7 @@
   </section>
 
   <!-- UBICACIÓN -->
-  <section class="center reveal" style="overflow: visible;">
+  <section class="center reveal" style="overflow-x: hidden; overflow-y: visible;">
     <svg class="rose-motif" style="width:140px; top:-26px; left:-30px; color:var(--rose); opacity:0.18; transform:rotate(-12deg);"><use href="#rose-shape"/></svg>
     <svg class="rose-motif" style="width:120px; bottom:-20px; right:-26px; color:var(--teal); opacity:0.16; transform:rotate(18deg);"><use href="#rose-shape"/></svg>
     <div class="section-title">A dónde ir</div>
@@ -702,15 +700,6 @@
           <button type="button" class="choice-btn" data-value="no">No podré ir</button>
         </div>
 
-        <label>Número de acompañantes</label>
-        <div class="guests-row">
-          <div class="stepper">
-            <button type="button" id="minusGuest">−</button>
-            <span id="guestCount">0</span>
-            <button type="button" id="plusGuest">+</button>
-          </div>
-        </div>
-
         <label for="guestMessage">Mensaje para mis papás</label>
         <textarea id="guestMessage" name="guestMessage" placeholder="Escribe aquí tu mensaje o confirmación..."></textarea>
 
@@ -808,16 +797,6 @@
     });
   });
 
-  // ---- Stepper de acompañantes ----
-  let guestCount = 0;
-  const guestCountEl = document.getElementById('guestCount');
-  document.getElementById('plusGuest').addEventListener('click', () => {
-    if(guestCount < 5){ guestCount++; guestCountEl.textContent = guestCount; }
-  });
-  document.getElementById('minusGuest').addEventListener('click', () => {
-    if(guestCount > 0){ guestCount--; guestCountEl.textContent = guestCount; }
-  });
-
   // ---- Envío del formulario ----
   // 👉 Reemplaza este número por el de tus papás: código de país 52 + los 10 dígitos, sin espacios ni signos.
   const whatsappNumber = '525513914204';
@@ -825,9 +804,6 @@
   function buildWhatsAppMessage(entry){
     const asistencia = entry.attendance === 'si' ? 'sí asistiré' : 'no podré asistir';
     let text = `¡Hola! Soy ${entry.name} y confirmo que ${asistencia} a los XV años.`;
-    if(entry.attendance === 'si' && entry.guests > 0){
-      text += ` Voy con ${entry.guests} acompañante${entry.guests > 1 ? 's' : ''}.`;
-    }
     if(entry.message){
       text += ` Mensaje: ${entry.message}`;
     }
@@ -850,7 +826,6 @@
     const entry = {
       name,
       attendance,
-      guests: guestCount,
       message,
       submittedAt: new Date().toISOString()
     };
