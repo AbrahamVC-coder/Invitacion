@@ -389,6 +389,16 @@
 
 
   /* ---------- LISTA DE REGALOS ---------- */
+  .gift-option{ margin-top: 24px; }
+  .gift-option-label{
+    font-family:'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.08em;
+    color: var(--gold-soft); margin-bottom: 10px;
+  }
+  .gift-divider{
+    margin: 30px auto; width: 60%; border-top: 1px solid var(--line);
+  }
+  .gift-box-icon--static{ filter: blur(0.6px) drop-shadow(0 10px 16px rgba(0,0,0,0.4)); opacity: 0.94; }
+
   .gift-link{ display:inline-block; margin-top: 14px; text-decoration:none; }
   .gift-box-icon{
     width: 170px; height: auto;
@@ -503,7 +513,7 @@
     <div class="families">
       <div class="family-card">
         <div class="role">MIS PAPÁS</div>
-        <div class="names">Nallely Palacios Arteaga<span class="amp">&amp;</span>Jesús Carmona Reyes</div>
+        <div class="names">Nallely Palacios Arteaga<span class="amp">&amp;</span>Jesús Carmina Reyes</div>
       </div>
       <div class="family-card">
         <div class="role">MIS PADRINOS</div>
@@ -667,19 +677,39 @@
     <svg class="rose-motif" style="width:140px; top:-24px; left:-28px; color:var(--rose); opacity:0.18; transform:rotate(-12deg);"><use href="#rose-shape"/></svg>
     <svg class="rose-motif" style="width:120px; bottom:-20px; right:-26px; color:var(--gold-soft); opacity:0.16; transform:rotate(16deg);"><use href="#rose-shape"/></svg>
     <div class="section-title">Lista de regalos</div>
-    <div class="section-sub">Consulta esta lista de regalos que acabo de crear.</div>
-    <a class="gift-link" href="https://www.amazon.com.mx/registries/gl/guest-view/2XUJWJJLI10DB?ref_=cm_sw_r_apann_ggr-subnav-share_QTKM3PYPTQ52D61F65GP&language=en-US" target="_blank" rel="noopener">
-      <svg class="gift-box-icon" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+    <div class="section-sub">Si deseas hacernos un regalo, puedes consultar nuestra lista o también puedes llevarlo personalmente el día de la celebración.</div>
+
+    <div class="gift-option">
+      <div class="gift-option-label">Lista de regalos</div>
+      <a class="gift-link" href="https://www.amazon.com.mx/registries/gl/guest-view/2XUJWJJLI10DB?ref_=cm_sw_r_apann_ggr-subnav-share_QTKM3PYPTQ52D61F65GP&language=en-US" target="_blank" rel="noopener">
+        <svg class="gift-box-icon" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="76" width="140" height="94" fill="#f2e9d8"/>
+          <polygon points="30,76 50,58 170,58 170,76" fill="#e3d8bd"/>
+          <rect x="86" y="76" width="28" height="94" fill="#4a72c4"/>
+          <polygon points="86,76 100,60 128,60 114,76" fill="#345191"/>
+          <path d="M100 58 C 70 48, 60 20, 88 16 C 104 13, 108 34, 100 48 C 92 34, 96 13, 112 16 C 140 20, 130 48, 100 58 Z" fill="#4a72c4" stroke="#345191" stroke-width="2"/>
+          <circle cx="100" cy="52" r="7" fill="#345191"/>
+          <rect x="30" y="76" width="140" height="10" fill="#345191" opacity="0.5"/>
+        </svg>
+      </a>
+      <div class="gift-hint">Toca la caja para ver la lista</div>
+    </div>
+
+    <div class="gift-divider"></div>
+
+    <div class="gift-option">
+      <div class="gift-option-label">Regalo presencial</div>
+      <svg class="gift-box-icon gift-box-icon--static" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
         <rect x="30" y="76" width="140" height="94" fill="#f2e9d8"/>
         <polygon points="30,76 50,58 170,58 170,76" fill="#e3d8bd"/>
-        <rect x="86" y="76" width="28" height="94" fill="#4a72c4"/>
-        <polygon points="86,76 100,60 128,60 114,76" fill="#345191"/>
-        <path d="M100 58 C 70 48, 60 20, 88 16 C 104 13, 108 34, 100 48 C 92 34, 96 13, 112 16 C 140 20, 130 48, 100 58 Z" fill="#4a72c4" stroke="#345191" stroke-width="2"/>
-        <circle cx="100" cy="52" r="7" fill="#345191"/>
-        <rect x="30" y="76" width="140" height="10" fill="#345191" opacity="0.5"/>
+        <rect x="86" y="76" width="28" height="94" fill="#c0392b"/>
+        <polygon points="86,76 100,60 128,60 114,76" fill="#8e2418"/>
+        <path d="M100 58 C 70 48, 60 20, 88 16 C 104 13, 108 34, 100 48 C 92 34, 96 13, 112 16 C 140 20, 130 48, 100 58 Z" fill="#c0392b" stroke="#8e2418" stroke-width="2"/>
+        <circle cx="100" cy="52" r="7" fill="#8e2418"/>
+        <rect x="30" y="76" width="140" height="10" fill="#8e2418" opacity="0.5"/>
       </svg>
-    </a>
-    <div class="gift-hint">Toca la caja para ver la lista</div>
+      <div class="gift-hint">También puedes llevar tu regalo el día de la celebración</div>
+    </div>
   </section>
 
   <!-- RSVP -->
