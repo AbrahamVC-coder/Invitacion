@@ -435,6 +435,31 @@
     font-family:'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--gold-soft);
   }
   .dress-code-note{ max-width: 380px; margin: 22px auto 0; font-size: 0.98rem; opacity: 0.8; }
+
+  /* ---------- botón de música ---------- */
+  #musicToggle{
+    position: fixed;
+    bottom: 22px; right: 20px;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold));
+    color: var(--midnight-deep);
+    font-size: 1.4rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    z-index: 999;
+    transition: transform 0.2s ease;
+  }
+  #musicToggle:active{ transform: scale(0.92); }
+  #musicToggle.playing{
+    animation: music-pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes music-pulse{
+    0%, 100% { box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 0 0 rgba(227,201,138,0.5); }
+    50% { box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 0 10px rgba(227,201,138,0); }
+  }
 </style>
 </head>
 <body>
@@ -513,7 +538,7 @@
     <div class="families">
       <div class="family-card">
         <div class="role">MIS PAPÁS</div>
-        <div class="names">Nallely Palacios Arteaga<span class="amp">&amp;</span>Jesús Carmina Reyes</div>
+        <div class="names">Nallely Palacios Arteaga<span class="amp">&amp;</span>Jesús Carmona Reyes</div>
       </div>
       <div class="family-card">
         <div class="role">MIS PADRINOS</div>
@@ -751,7 +776,30 @@
 
 </div>
 
+<button id="musicToggle" type="button" aria-label="Reproducir música">🎵</button>
+<iframe id="ytPlayer" style="position:fixed; width:1px; height:1px; opacity:0; pointer-events:none; border:0;" src="" allow="autoplay; encrypted-media" title="Música de fondo"></iframe>
+
 <script>
+  // ---- Música de fondo (YouTube) ----
+  const YT_VIDEO_ID = 'V_j-r6krxe4';
+  const musicBtn = document.getElementById('musicToggle');
+  const ytFrame = document.getElementById('ytPlayer');
+  let musicStarted = false;
+
+  musicBtn.addEventListener('click', () => {
+    if(!musicStarted){
+      ytFrame.src = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&enablejsapi=1&playsinline=1&loop=1&playlist=${YT_VIDEO_ID}&controls=0`;
+      musicStarted = true;
+      musicBtn.classList.add('playing');
+      musicBtn.textContent = '⏸';
+    } else {
+      const nowPlaying = musicBtn.classList.toggle('playing');
+      const cmd = nowPlaying ? 'playVideo' : 'pauseVideo';
+      ytFrame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: cmd, args: [] }), '*');
+      musicBtn.textContent = nowPlaying ? '⏸' : '🎵';
+    }
+  });
+
   // ---- Animaciones al hacer scroll ----
   const revealEls = document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
