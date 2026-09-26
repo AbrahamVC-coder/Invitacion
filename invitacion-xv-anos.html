@@ -546,7 +546,11 @@
       </div>
       <div class="family-card">
         <div class="role">MIS PADRINOS</div>
-        <div class="names">Gabriela Palacios Arteaga<span class="amp">&amp;</span>Josueth Eduardo Palacios Arteaga</div>
+        <div class="names">
+          Gabriela Palacios Arteaga<br>
+          <span class="amp">&amp;</span><br>
+          Josueth Eduardo Palacios Arteaga
+        </div>
       </div>
     </div>
   </section>
@@ -785,24 +789,19 @@
 
 <script>
   // ---- Música de fondo (YouTube) ----
-  const YT_VIDEO_ID = 'V_j-r6krxe4';
-  const musicBtn = document.getElementById('musicToggle');
-  const ytFrame = document.getElementById('ytPlayer');
-  let musicStarted = false;
+  <audio id="backgroundMusic" autoplay loop>
+  <source src="Alice.mp3" type="audio/mpeg">
+</audio>
 
-  musicBtn.addEventListener('click', () => {
-    if(!musicStarted){
-      ytFrame.src = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&enablejsapi=1&playsinline=1&loop=1&playlist=${YT_VIDEO_ID}&controls=0`;
-      musicStarted = true;
-      musicBtn.classList.add('playing');
-      musicBtn.textContent = '⏸';
-    } else {
-      const nowPlaying = musicBtn.classList.toggle('playing');
-      const cmd = nowPlaying ? 'playVideo' : 'pauseVideo';
-      ytFrame.contentWindow.postMessage(JSON.stringify({ event: 'command', func: cmd, args: [] }), '*');
-      musicBtn.textContent = nowPlaying ? '⏸' : '🎵';
-    }
+<script>
+  const music = document.getElementById('backgroundMusic');
+
+  music.volume = 0.6;
+
+  music.play().catch(function() {
+    console.log("El navegador bloqueó la reproducción automática.");
   });
+</script>
 
   // ---- Animaciones al hacer scroll ----
   const revealEls = document.querySelectorAll('.reveal');
